@@ -1,0 +1,38 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+#lienzo{	
+	-fx-background-color: white;
+}
+
+.principal{
+	/*-fx-font-family: "Segoe UI";*/
+	/*-fx-font-size: 13px ;*/
+	-fx-background-color:#f1f0ec;
+	
+}
+ /*#9ba79d; #a83532; #f1f0ec;*/
+.dibujo {
+	-fx-background-color: white;
+	-fx-border-color: #cbcbbf;
+	-fx-border-width: 1.5px ;
+}
+
+.control {
+    -fx-border-color: #cbcbbf;
+    -fx-background-color: white;
+    -fx-border-style:solid ;
+    -fx-border-width: 2.2px ;
+	/*-fx-border-width: 150;*/
+}
+
+.buttons{
+	
+}
+
+.labels{
+	
+    -fx-text-fill: gray;
+}
+
+.body{
+	-fx-background-color: black;
+}
