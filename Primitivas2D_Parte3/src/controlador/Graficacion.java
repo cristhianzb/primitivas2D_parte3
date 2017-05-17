@@ -328,7 +328,12 @@ public class Graficacion{
 					click1 = true;
 				}else{
 					p2 = new Point((int)e.getX(),(int)e.getY());
-					pintarLinea(new Line(p1, p2), lienzo.getGraphicsContext2D());
+					Line lin =pintarLinea(new Line(p1, p2), lienzo.getGraphicsContext2D());				
+					String clave = lin.toString()+lins;
+					figsTexto.add(clave);
+					figuras.put(clave, lin);
+					lins++;
+					lista.setItems(figsTexto);
 					click1 = false;				
 					lienzo.setOnMouseClicked(e1);	
 				}		
@@ -338,9 +343,10 @@ public class Graficacion{
 		
 		}
 	
-		/*
-	@FXML private void btncirculo(ActionEvent event){
-			if(!click1)
+		
+	@FXML 
+	private void btncirculo(ActionEvent event){
+		if(!click1)
 				 e1 = lienzo.getOnMouseClicked();
 			lienzo.setOnMouseClicked(new EventHandler<MouseEvent>() {
 							
@@ -351,8 +357,17 @@ public class Graficacion{
 						click1 = true;
 					}else{
 						p2 = new Point((int)e.getX(),(int)e.getY());
-						int radio = (int) Math.sqrt((p2.x-p1.x)^2 + (p2.y-p1.y)^2);
-						pintarCircunferencia(new Circumference(p1.x, p1.y, radio), lienzo.getGraphicsContext2D());
+						double dx = p2.x-p1.x;
+						double dy = p2.y-p1.y;
+						int radio = (int)(Math.sqrt(dx*dx+dy*dy));
+						Circumference cir= pintarCircunferencia(new Circumference(p1.x, p1.y, radio), lienzo.getGraphicsContext2D());
+						//registrar
+						String clave = cir.toString()+lins;
+						figsTexto.add(clave);
+						figuras.put(clave, cir);
+						lins++;
+						lista.setItems(figsTexto);
+						
 						click1 = false;				
 						lienzo.setOnMouseClicked(e1);	
 					}		
@@ -361,7 +376,38 @@ public class Graficacion{
 			});
 		
 		}
-	*/
+	
+	@FXML 
+	private void btncuadrado(ActionEvent event){
+		if(!click1)
+				 e1 = lienzo.getOnMouseClicked();
+			lienzo.setOnMouseClicked(new EventHandler<MouseEvent>() {
+							
+				@Override
+				public void handle(MouseEvent e) {
+					if(!click1){
+						p1 = new Point((int)e.getX(),(int)e.getY());
+						click1 = true;
+					}else{
+						p2 = new Point((int)e.getX(),(int)e.getY());
+						int lado = Math.abs(p2.x-p1.x);
+						Poligono pol= pintarPoligono(new Cuadrado(p1,lado), lienzo.getGraphicsContext2D());
+						//registrar
+						String clave = pol.toString()+lins;
+						figsTexto.add(clave);
+						figuras.put(clave, pol);
+						lins++;
+						lista.setItems(figsTexto);
+						
+						click1 = false;				
+						lienzo.setOnMouseClicked(e1);	
+					}		
+				}
+				
+			});
+		
+		}
+	
 		
 }
 
