@@ -2,40 +2,39 @@ package controlador;
 
 
 import java.awt.Point;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javax.imageio.ImageIO;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-
+import javafx.stage.FileChooser;
 import modelo.Circumference;
 import modelo.ConversorColor;
 import modelo.Cuadrado;
 import modelo.FloodFill;
+import modelo.Grafico;
 import modelo.Line;
 import modelo.Poligono;
-import modelo.ScanLine;
 import modelo.Triangulo;
-import modelo.Grafico;
 
 public class Graficacion{  
 	
@@ -444,6 +443,31 @@ public class Graficacion{
 			});
 		
 		}
+	
+	@FXML 
+	private void btnguardar(ActionEvent event){	
+		
+		
+		FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Guardar Imagen");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+        WritableImage imagen = lienzo.snapshot(null, null);
+        //System.out.println(pic.getId());
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(imagen/*pic.getImage()*/,
+                    null), "png", file);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+		
+	}
 		
 }
 
