@@ -43,25 +43,11 @@
             </AnchorPane>
             <AnchorPane fx:id="trianguloControl" layoutX="584.0" layoutY="440.0" prefHeight="135.0" prefWidth="150.0" styleClass="control">
                <children>
-                  <TextField id="p1" fx:id="tp1" layoutX="75.0" layoutY="31.0" prefHeight="25.0" prefWidth="66.0" />
-                  <TextField id="p2" fx:id="tp2" layoutX="75.0" layoutY="63.0" prefHeight="23.0" prefWidth="66.0" />
-                  <TextField id="p2" fx:id="tp3" layoutX="75.0" layoutY="95.0" prefHeight="23.0" prefWidth="66.0" />
-                  <Label layoutX="13.0" layoutY="35.0" styleClass="labels" text="Punto 1:">
-                     <font>
-                        <Font name="Segoe UI" size="13.0" />
-                     </font></Label>
-                  <Label layoutX="13.0" layoutY="67.0" styleClass="labels" text="Punto 2:">
-                     <font>
-                        <Font name="Segoe UI" size="13.0" />
-                     </font></Label>
-                  <Label layoutX="13.0" layoutY="99.0" styleClass="labels" text="Punto 3:">
-                     <font>
-                        <Font name="Segoe UI" size="13.0" />
-                     </font></Label>
                   <Label layoutX="8.0" layoutY="6.0" styleClass="labels" text="Triangulo:">
                      <font>
                         <Font name="Segoe UI" size="13.0" />
                      </font></Label>
+                  <Button layoutX="35.0" layoutY="55.0" mnemonicParsing="false" onAction="#btntriangulo" text="Triangulo" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="cuadradoControl" layoutX="394.0" layoutY="440.0" prefHeight="135.0" prefWidth="150.0" styleClass="control">
@@ -73,7 +59,6 @@
                   <Button layoutX="34.0" layoutY="55.0" mnemonicParsing="false" onAction="#btncuadrado" text="Cuadrado" />
                </children>
             </AnchorPane>
-            <Button fx:id="botonDibujar" layoutX="318.0" layoutY="588.0" mnemonicParsing="false" onAction="#dibujar" text="Dibujar" />
             <AnchorPane layoutX="734.0" layoutY="45.0" prefHeight="150.0" prefWidth="196.0" styleClass="control">
                <children>
                   <Button fx:id="botonRellenar" layoutX="69.0" layoutY="111.0" mnemonicParsing="false" onAction="#rellenar" text="Rellenar" />
@@ -104,7 +89,7 @@
                      </font></Label>
                </children>
             </AnchorPane>
-            <Button fx:id="btnBorrar" layoutX="448.0" layoutY="588.0" mnemonicParsing="false" onAction="#borrar" text="Borrar" />
+            <Button fx:id="btnBorrar" layoutX="427.0" layoutY="588.0" mnemonicParsing="false" onAction="#borrar" text="Borrar" />
             <SplitPane dividerPositions="0.46825396825396826" layoutX="763.0" layoutY="226.0" orientation="VERTICAL" prefHeight="389.0" prefWidth="171.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -143,7 +128,7 @@
                   </AnchorPane>
               </items>
             </SplitPane>
-            <Button id="btnColor" fx:id="btnColor" layoutX="210.0" layoutY="588.0" mnemonicParsing="false" onAction="#seleccionarColor" text="Color" />
+            <Button id="btnColor" fx:id="btnColor" layoutX="259.0" layoutY="588.0" mnemonicParsing="false" onAction="#seleccionarColor" text="Color" />
          </children>
       </AnchorPane>
       <AnchorPane id="inicio" fx:id="inicio" opacity="0.84" prefHeight="634.0" prefWidth="972.0" style="-fx-background-color: black;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

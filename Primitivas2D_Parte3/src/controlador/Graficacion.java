@@ -40,7 +40,8 @@ import modelo.Grafico;
 public class Graficacion{  
 	
 	private Point p1 = null;
-	private Point p2 = null;	
+	private Point p2 = null;
+	private Point p3 = null;
 	boolean click1 = false;
 	boolean click2 = false;
 	EventHandler e1= null;
@@ -407,7 +408,42 @@ public class Graficacion{
 			});
 		
 		}
-	
+
+	@FXML 
+	private void btntriangulo(ActionEvent event){
+		if(!click1)
+				 e1 = lienzo.getOnMouseClicked();
+			lienzo.setOnMouseClicked(new EventHandler<MouseEvent>() {
+							
+				@Override
+				public void handle(MouseEvent e) {
+					if(!click1){
+						p1 = new Point((int)e.getX(),(int)e.getY());
+						click1 = true;
+					}else{
+						if(!click2){
+							p2 = new Point((int)e.getX(),(int)e.getY());
+							click2 = true;
+						}else{
+							p3 = new Point((int)e.getX(),(int)e.getY());							
+							Poligono pol= pintarPoligono(new Triangulo(p1, p2, p3), lienzo.getGraphicsContext2D());
+							//registrar
+							String clave = pol.toString()+lins;
+							figsTexto.add(clave);
+							figuras.put(clave, pol);
+							lins++;
+							lista.setItems(figsTexto);
+							
+							click1 = false;		
+							click2 = false;	
+							lienzo.setOnMouseClicked(e1);	
+						}
+					}		
+				}
+				
+			});
+		
+		}
 		
 }
 
