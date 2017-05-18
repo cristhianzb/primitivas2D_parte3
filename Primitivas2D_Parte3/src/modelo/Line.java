@@ -205,37 +205,38 @@ public class Line extends Primitive2D{
 	public ArrayList<Point> thickness(ArrayList<Point> points){
 		ArrayList<Point> ans = points;
 		int tam = points.size();
-		if(getGrosor().equals("Grueso")){
+		if(getGrosor().equals("Grueso")){			
 			int x;
 			int y;
 			for(int i=0;i<tam;i++){
 				x = points.get(i).x;
 				y = points.get(i).y;
 				if(DY >= DX){
-					ans.add(new Point(x,y+1));
-					ans.add(new Point(x,y-1));
-				}else{
 					ans.add(new Point(x+1,y));
 					ans.add(new Point(x-1,y));
+				}else{
+					ans.add(new Point(x,y+1));
+					ans.add(new Point(x,y-1));
 				}
 			}
 		}else if(getGrosor().equals("Muy Grueso")){
+			int esp = 2;
 			int x;
 			int y;
 			for(int i=0;i<tam;i++){
 				x = points.get(i).x;
 				y = points.get(i).y;
 				if(DY >= DX){
-					ans.add(new Point(x,y+2));
-					ans.add(new Point(x,y+1));
-					ans.add(new Point(x,y-1));
-					ans.add(new Point(x,y-2));
+					for(int j = 1;j<=esp;j++){
+						ans.add(new Point(x+j,y));
+						ans.add(new Point(x-j,y));
+					}					
 				}
 				else{
-				ans.add(new Point(x+1,y));
-				ans.add(new Point(x-1,y));
-				ans.add(new Point(x+2,y));
-				ans.add(new Point(x-2,y));
+					for(int j = 1;j<=esp;j++){
+						ans.add(new Point(x,y+j));
+						ans.add(new Point(x,y-j));
+					}					
 				}
 			}
 		}

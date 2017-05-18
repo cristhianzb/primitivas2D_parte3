@@ -19,6 +19,8 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -38,6 +40,7 @@ import modelo.Triangulo;
 
 public class Graficacion{  
 	
+	private String grosor;
 	private Point p1 = null;
 	private Point p2 = null;
 	private Point p3 = null;
@@ -72,6 +75,8 @@ public class Graficacion{
 	@FXML private Label col1, col2, col3;	
 	@FXML private Button btnBorrar;
 	
+	@FXML private ComboBox<String> cbbox;
+	
 	//Parte tres, Transformaciones
 	@FXML private ListView<String> lista;
 	
@@ -89,8 +94,12 @@ public class Graficacion{
 	public Graficacion(){
 		figsTexto = FXCollections.observableArrayList();
 		figuras = new HashMap<String, Grafico>();
-		lins = 0; circs = 0; cuads = 0; tris = 0;
-		}
+		lins = 0; circs = 0; cuads = 0; tris = 0;			
+		grosor = "Delgado";
+	}	
+
+	
+	
 	
 	private void actualizar(Grafico fig, String claveAnte, int indice){
 		//figsTexto.set(indice, fig.toString());
@@ -140,6 +149,7 @@ public class Graficacion{
 		col2.setText("G:");
 		col3.setText("B:");
 		System.out.println("a RGB");
+		setCombobox();
 	}
 	@FXML private void btnHSL(){
 		inicio.setVisible(false);
@@ -147,6 +157,7 @@ public class Graficacion{
 		col2.setText("S:");
 		col3.setText("L:");
 		System.out.println("a HSL");
+		setCombobox();
 	}
 	@FXML private void btnCMY(){
 		inicio.setVisible(false);
@@ -154,6 +165,7 @@ public class Graficacion{
 		col2.setText("M:");
 		col3.setText("Y:");
 		System.out.println("a CMY");
+		setCombobox();
 	}
 	
 	@FXML private void borrar(ActionEvent e){
@@ -162,7 +174,6 @@ public class Graficacion{
 		figuras = new HashMap<String, Grafico>();
 		lista.setItems(figsTexto);
 		lins = 0; circs = 0; cuads = 0; tris = 0;
-		System.out.println("Borra. ");
 	}
 	
 	@FXML private void dibujar(ActionEvent event){
@@ -265,6 +276,8 @@ public class Graficacion{
 	}
 	
 	private Circumference pintarCircunferencia(Circumference cir, GraphicsContext gc){
+		obtenerGrosor();
+		cir.setGrosor(grosor);
 		ArrayList<Point> ar = cir.bresenham();
 		for(Point po: ar){
 			gc.fillRect(po.getX(), po.getY(), 1, 1);
@@ -273,16 +286,20 @@ public class Graficacion{
 	}
 	
 	private modelo.Line pintarLinea(modelo.Line lin, GraphicsContext gc){
-			ArrayList<Point> ar = lin.bresenham();
-			for(Point po: ar){
-				gc.fillRect(po.getX(), po.getY(), 1, 1);
-			}
-			return lin;
+		obtenerGrosor();
+		lin.setGrosor(grosor);
+		ArrayList<Point> ar = lin.bresenham();
+		for(Point po: ar){
+			gc.fillRect(po.getX(), po.getY(), 1, 1);
+		}
+		return lin;
 	}
 	
 	private Poligono pintarPoligono(Poligono pol, GraphicsContext gc){
 		ArrayList<Line> lins = pol.dibujar();
 		for(Line lin: lins){
+			obtenerGrosor();
+			lin.setGrosor(grosor);
 			ArrayList<Point> ar = lin.bresenham();
 			for(Point po: ar){
 				gc.fillRect(po.getX(), po.getY(), 1, 1);
@@ -451,8 +468,6 @@ public class Graficacion{
 	
 	@FXML 
 	private void btnguardar(ActionEvent event){	
-		
-		
 		FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Guardar Imagen");
         fileChooser.getExtensionFilters().addAll(
@@ -464,13 +479,22 @@ public class Graficacion{
         File file = fileChooser.showSaveDialog(null);
         if (file != null) {
             try {
-                ImageIO.write(SwingFXUtils.fromFXImage(imagen/*pic.getImage()*/,
-                    null), "png", file);
+                ImageIO.write(SwingFXUtils.fromFXImage(imagen,null), "png", file);
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
         }
 		
+	}
+	
+	private void obtenerGrosor(){
+		grosor = cbbox.getSelectionModel().getSelectedItem();
+		if(grosor == null)
+			grosor = "Delgado";
+	}
+	
+	private void setCombobox(){
+		cbbox.setItems(FXCollections.observableArrayList("Grueso","Muy Grueso","Delgado"));
 	}
 		
 }

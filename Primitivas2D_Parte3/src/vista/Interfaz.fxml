@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
@@ -77,6 +78,8 @@
                         <Font name="Segoe UI" size="13.0" />
                      </font></Label>
                   <TextField id="colorB" fx:id="colorB" layoutX="140.0" layoutY="71.0" prefHeight="18.0" prefWidth="36.0" text="0" />
+                  <Label layoutX="10.0" layoutY="24.0" text="Grosor:" />
+                  <ComboBox fx:id="cbbox" layoutX="67.0" layoutY="19.0" prefHeight="26.0" prefWidth="123.0" promptText="Select" />
                </children>
             </AnchorPane>
             <Button fx:id="btnBorrar" layoutX="427.0" layoutY="588.0" mnemonicParsing="false" onAction="#borrar" text="Borrar" />
@@ -122,7 +125,7 @@
             <Button layoutX="179.0" layoutY="588.0" mnemonicParsing="false" onAction="#btnguardar" text="Guardar" />
          </children>
       </AnchorPane>
-      <AnchorPane id="inicio" fx:id="inicio" opacity="0.84" prefHeight="634.0" prefWidth="972.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="inicio" fx:id="inicio" opacity="0.84" prefHeight="634.0" prefWidth="972.0" style="-fx-background-color: black;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Pane layoutX="131.0" layoutY="86.0" prefHeight="462.0" prefWidth="711.0" style="-fx-background-color: black;">
                <children>
