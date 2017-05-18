@@ -41,6 +41,7 @@ import modelo.Triangulo;
 public class Graficacion{  
 	
 	private String grosor;
+	private String tipolinea; 
 	private Point p1 = null;
 	private Point p2 = null;
 	private Point p3 = null;
@@ -76,6 +77,7 @@ public class Graficacion{
 	@FXML private Button btnBorrar;
 	
 	@FXML private ComboBox<String> cbbox;
+	@FXML private ComboBox<String> cbboxtipo;
 	
 	//Parte tres, Transformaciones
 	@FXML private ListView<String> lista;
@@ -96,6 +98,7 @@ public class Graficacion{
 		figuras = new HashMap<String, Grafico>();
 		lins = 0; circs = 0; cuads = 0; tris = 0;			
 		grosor = "Delgado";
+		tipolinea = "Continuo";
 	}	
 
 	
@@ -277,7 +280,9 @@ public class Graficacion{
 	
 	private Circumference pintarCircunferencia(Circumference cir, GraphicsContext gc){
 		obtenerGrosor();
+		obtenerTipoLinea();
 		cir.setGrosor(grosor);
+		cir.setTipo(tipolinea);
 		ArrayList<Point> ar = cir.bresenham();
 		for(Point po: ar){
 			gc.fillRect(po.getX(), po.getY(), 1, 1);
@@ -287,7 +292,9 @@ public class Graficacion{
 	
 	private modelo.Line pintarLinea(modelo.Line lin, GraphicsContext gc){
 		obtenerGrosor();
+		obtenerTipoLinea();
 		lin.setGrosor(grosor);
+		lin.setTipo(tipolinea);
 		ArrayList<Point> ar = lin.bresenham();
 		for(Point po: ar){
 			gc.fillRect(po.getX(), po.getY(), 1, 1);
@@ -493,8 +500,17 @@ public class Graficacion{
 			grosor = "Delgado";
 	}
 	
+	private void obtenerTipoLinea(){
+		tipolinea = cbboxtipo.getSelectionModel().getSelectedItem();
+		if(tipolinea == null)
+			tipolinea = "Continuo";
+	}
+	
+	
+	
 	private void setCombobox(){
 		cbbox.setItems(FXCollections.observableArrayList("Grueso","Muy Grueso","Delgado"));
+		cbboxtipo.setItems(FXCollections.observableArrayList("Punteado","Segmentado","Continuo"));
 	}
 		
 }
