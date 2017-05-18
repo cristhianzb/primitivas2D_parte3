@@ -69,8 +69,7 @@ public class Graficacion{
 	
 	@FXML private Button botonRellenar;
 	@FXML private TextField colorR, colorG, colorB ;
-	@FXML private Label col1, col2, col3;
-	@FXML private TextField corX, corY;
+	@FXML private Label col1, col2, col3;	
 	@FXML private Button btnBorrar;
 	
 	//Parte tres, Transformaciones
@@ -213,38 +212,44 @@ public class Graficacion{
 	}
 	
 	@FXML private void rellenar(ActionEvent event) throws Exception{
-		double r = Double.parseDouble(colorR.getText());
-		double g = Double.parseDouble(colorG.getText());
-		double b = Double.parseDouble(colorB.getText());
-		int[] cols = new int[3];
-		cols[0] = (int)r; cols[1] = (int)g; cols[2]= (int)b;
-		 if(col1.getText().charAt(0) =='H'){
-			cols = ConversorColor.HSLtoRGB((int)r, (int)g, (int)b);
-		 }else if(col1.getText().charAt(0) =='C'){
-				cols = ConversorColor.CMYtoRGB(r, g, b);
-	     }
-		r = cols[0] ; g = cols[1]; b = cols[2];
+		e1 = lienzo.getOnMouseClicked();
+		lienzo.setOnMouseClicked(new EventHandler<MouseEvent>() {
+						
+			@Override
+			public void handle(MouseEvent e) {				
+				p1 = new Point((int)e.getX(),(int)e.getY());
+				lienzo.setOnMouseClicked(e1);				
+				double r = Double.parseDouble(colorR.getText());
+				double g = Double.parseDouble(colorG.getText());
+				double b = Double.parseDouble(colorB.getText());
+				int[] cols = new int[3];
+				cols[0] = (int)r; cols[1] = (int)g; cols[2]= (int)b;
+				 if(col1.getText().charAt(0) =='H'){
+					cols = ConversorColor.HSLtoRGB((int)r, (int)g, (int)b);
+				 }else if(col1.getText().charAt(0) =='C'){
+						cols = ConversorColor.CMYtoRGB(r, g, b);
+			     }
+				r = cols[0] ; g = cols[1]; b = cols[2];
+				
+				FloodFill floodfill = new FloodFill();
+				WritableImage imagen = lienzo.snapshot(null, null);
+					GraphicsContext gc = lienzo.getGraphicsContext2D();
+				Color rellenado = Color.rgb((int)r,(int)g,(int)b); 
+				
+				int veces = floodfill.fill(p1.x, p1.y,Color.WHITE, gc, lienzo, imagen, rellenado);
+				gc.drawImage(imagen, 0, 0);
+				System.out.print("Rellena "+veces + " pixeles. ");
+				
+			}
+			
+		});		
 		
-		FloodFill floodfill = new FloodFill();
-		WritableImage imagen = lienzo.snapshot(null, null);
-			GraphicsContext gc = lienzo.getGraphicsContext2D();
-		Color rellenado = Color.rgb((int)r,(int)g,(int)b); 
-		System.out.println(r);
-		System.out.println(g);
-		System.out.println(b);
-		int veces = floodfill.fill(Integer.parseInt(corX.getText()), Integer.parseInt(corY.getText()),
-				    Color.WHITE, gc, lienzo, imagen, rellenado);
-		gc.drawImage(imagen, 0, 0);
-		System.out.print("Rellena "+veces + " pixeles. ");
 	}
 
 	
-	@FXML private void seleccion(MouseEvent e){
-		corX.setText(""+(int)e.getX());
-		corY.setText(""+(int)e.getY());
+	@FXML private void seleccion(MouseEvent e){		
 		tcorX.setText(""+(int)e.getX());
-		tcorY.setText(""+(int)e.getY());
-		//System.out.println(e.getX()+" "+e.getY());
+		tcorY.setText(""+(int)e.getY());		
 	}
 	
 	private void pintarFigura(Grafico graf, GraphicsContext gc){
@@ -456,7 +461,6 @@ public class Graficacion{
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
         WritableImage imagen = lienzo.snapshot(null, null);
-        //System.out.println(pic.getId());
         File file = fileChooser.showSaveDialog(null);
         if (file != null) {
             try {
